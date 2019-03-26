@@ -25,5 +25,17 @@ public class UserOfList {
         }
         System.out.println( "populated list: " + list
                           + System.lineSeparator());
+		
+		System.out.println( "Get value at index 2: " + list.get(2));
+		
+		list.remove(2);
+		System.out.println( "Removed node at index 2: " + list);
+		
+		list.add(2, "u");
+		System.out.println("Added u at index 2: " + list);
+		
+		System.out.println( "Replaced value: " + list.set(0, "d"));
+		System.out.println(list + System.lineSeparator());
+
     }
 }
