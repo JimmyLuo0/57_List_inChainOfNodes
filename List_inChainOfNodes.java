@@ -37,6 +37,18 @@ public class List_inChainOfNodes{
 		result += " Size: " + size();
 		return result;
     }
+	
+	private Node findCorrectNode(int index){
+		if (index == 0)
+			return headReference;
+		else return findCorrectNode(index - 1, headReference.getReferenceToNextNode());
+	}
+	
+	private Node findCorrectNode(int index, Node node){
+		if (index == 0)
+			return node;
+		else return findCorrectNode(index - 1, node.getReferenceToNextNode());
+	}
     
     
     /**
@@ -44,66 +56,51 @@ public class List_inChainOfNodes{
 
       @return true, in keeping with conventions yet to be discussed
      */
-     public boolean addAsHead( Object val) {
-		 headReference = new Node(val, headReference);		 
+    public boolean addAsHead( Object val) {
+		headReference = new Node(val, headReference);		 
         return true;
-     }
+    }
 	 
-	 public Object get(int index) {
-		 if (index == 0){
-			return headReference.getCargoReference();
-		 }
-		 else return get(index - 1, headReference.getReferenceToNextNode());
-	 }
+	public Object get(int index) {
+		return findCorrectNode(index).getCargoReference();
+	}
 	 
-	 public Object get(int index, Node nextNode){
-		 if(index == 0){
-			 return nextNode.getCargoReference();
-			 }
-		else return get(index - 1, nextNode.getReferenceToNextNode());
-	 }
+	public Object remove(int index){
+		Object removedValue;
+		if (index == 0){
+			removedValue = headReference.getCargoReference();
+			headReference = headReference.getReferenceToNextNode();
+		}
+		else{
+            removedValue = findCorrectNode(index).getCargoReference();
+			if (index == size() - 1)
+				findCorrectNode(index - 1).setReferenceToNextNode(null);
+			else{
+			findCorrectNode(index - 1).setReferenceToNextNode(findCorrectNode(index)
+														      .getReferenceToNextNode());
+			}
+		}
+		return removedValue;
+	}
 	 
-	 public void remove(int index){
-		 if (index == 0)
-			 headReference = headReference.getReferenceToNextNode();
-		 else remove (index - 1, headReference.getReferenceToNextNode());
-	 }
-	 public void remove(int index, Node nextNode){
-		 if (index == 1)
-			 nextNode.setReferenceToNextNode(nextNode.getReferenceToNextNode().getReferenceToNextNode());
-		 else remove (index - 1, nextNode.getReferenceToNextNode());
-	 }
+	public Object set(int index, Object newValue){
+		Object oldValue;
+		if(index == 0){
+			oldValue = headReference.getCargoReference();
+			headReference.setCargoReference(newValue);
+		}
+		else{ oldValue = findCorrectNode(index).getCargoReference();
+			  findCorrectNode(index).setCargoReference(newValue);
+		}
+		return oldValue;
+	}
 	 
-	 public Object set(int index, Object newValue){
-		 if(index == 0){
-			 Object oldValue = headReference.getCargoReference();
-			 headReference = new Node(newValue, headReference.getReferenceToNextNode());
-			 return oldValue;
-		 }
-		 else return set(index - 1, newValue, headReference.getReferenceToNextNode());
-	 }
-	 
-	 public Object set(int index, Object newValue, Node nextNode){
-		 if(index == 1){
-			 Object oldValue = nextNode.getCargoReference();
-			 nextNode.setReferenceToNextNode(new Node(newValue, nextNode.getReferenceToNextNode().getReferenceToNextNode()));
-			 return oldValue;
-		 }
-		 else return set(index - 1, newValue, nextNode.getReferenceToNextNode());
-	 }
-	 
-	 public boolean add(int index, Object value){
-		 if (index == 0)
+	public boolean add(int index, Object value){
+		if (index == 0)
 			return addAsHead(value);
-		else return add(index - 1, value, headReference.getReferenceToNextNode());
-	 }
-	 
-	 public boolean add(int index, Object value, Node nextNode){
-		 if (index == 1){
-			 Node temp = nextNode.getReferenceToNextNode();
-			 nextNode.setReferenceToNextNode(new Node(value, temp));
-			 return true;
-		 }
-		 else return add(index - 1, value, nextNode.getReferenceToNextNode());
-	 }
+		else{ Node temp = findCorrectNode(index - 1).getReferenceToNextNode();
+			  findCorrectNode(index - 1).setReferenceToNextNode(new Node(value, temp));
+			  return true;
+		}
+	}
 }

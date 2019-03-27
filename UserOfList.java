@@ -26,16 +26,31 @@ public class UserOfList {
         System.out.println( "populated list: " + list
                           + System.lineSeparator());
 		
-		System.out.println( "Get value at index 2: " + list.get(2));
+		System.out.println( "Get value at index 2: " + list.get(2) + System.lineSeparator());
+		System.out.println( "Get value at index 0: " + list.get(0) + System.lineSeparator());
+		System.out.println( "Get value at index 4: " + list.get(3) + System.lineSeparator());
 		
-		list.remove(2);
-		System.out.println( "Removed node at index 2: " + list);
+		list.add(3, "d");
+		System.out.println("Added d at index 3: " + list + System.lineSeparator());
+		list.add(0, "u");
+		System.out.println("Added u at index 0: " + list + System.lineSeparator());
+		list.add(6, "?");
+		System.out.println("Added ? at index 6: " + list + System.lineSeparator());
 		
-		list.add(2, "u");
-		System.out.println("Added u at index 2: " + list);
-		
-		System.out.println( "Replaced value: " + list.set(0, "d"));
+		System.out.println( "Replaced value at index 0 with z: " + list.set(0, "z") + System.lineSeparator());
 		System.out.println(list + System.lineSeparator());
+		System.out.println( "Replaced value at index 3 with x: " + list.set(3, "x") + System.lineSeparator());
+		System.out.println(list + System.lineSeparator());
+		System.out.println( "Replaced value at index 6 with w: " + list.set(6, "w") + System.lineSeparator());
+		System.out.println(list + System.lineSeparator());
+		
+		System.out.println(list.remove(2));
+		System.out.println( "Removed node at index 2: " + list + System.lineSeparator());
+		System.out.println(list.remove(5));
+		System.out.println( "Removed node at index 5: " + list + System.lineSeparator());
+		System.out.println(list.remove(0));
+		System.out.println( "Removed node at index 0: " + list + System.lineSeparator());
+		
 
     }
 }
